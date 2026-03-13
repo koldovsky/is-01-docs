@@ -4,4 +4,4 @@
 - Evaluate parts of your project in tokens
 - Fork this repository and make pull request with solution
 
-- 
+[Excalidraw Onboarding Docs](./docs/README.md)
