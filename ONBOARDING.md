@@ -117,7 +117,7 @@ Minimum checklist:
 
 - Code compiles and typechecks (`yarn test:typecheck`)
 - Relevant tests pass (`yarn test:app`)
-- Lint/format clean (`yarn test:code` or `yarn fix`)
+- Lint clean (`yarn test:code`) and formatting clean (`yarn test:other`, runs Prettier), or auto-fix both with `yarn fix`
 - Manual smoke test in local app for touched behavior
 - PR title uses semantic prefix (`feat`, `fix`, `docs`, `refactor`, ...)
 
