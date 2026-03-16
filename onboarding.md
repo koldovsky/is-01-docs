@@ -29,16 +29,16 @@ At a high level, the repo separates:
 ```mermaid
 flowchart TD
   subgraph Monorepo
-    subgraph CorePackages[Core Packages (packages/*)]
-      Common[@excalidraw/common]
-      Element[@excalidraw/element]
-      Math[@excalidraw/math]
-      Utils[@excalidraw/utils]
+    subgraph CorePackages["Core Packages (packages/*)"]
+      Common["@excalidraw/common"]
+      Element["@excalidraw/element"]
+      Math["@excalidraw/math"]
+      Utils["@excalidraw/utils"]
     end
 
-    Library[@excalidraw/excalidraw<br/>React editor library]
-    App[excalidraw-app<br/>Main web app]
-    Examples[examples/*<br/>Integration samples]
+    Library["@excalidraw/excalidraw"]
+    App[excalidraw-app]
+    Examples["examples/*"]
   end
 
   Common --> Library
@@ -104,14 +104,14 @@ Conceptual view:
 
 ```mermaid
 graph TD
-  RootPackage[Root package.json<br/>Yarn Workspaces]
-  RootPackage --> P1[packages/excalidraw]
-  RootPackage --> P2[packages/@excalidraw/common]
-  RootPackage --> P3[packages/@excalidraw/element]
-  RootPackage --> P4[packages/@excalidraw/math]
-  RootPackage --> P5[packages/@excalidraw/utils]
+  RootPackage["Root package.json<br/>Yarn Workspaces"]
+  RootPackage --> P1["packages/excalidraw"]
+  RootPackage --> P2["packages/@excalidraw/common"]
+  RootPackage --> P3["packages/@excalidraw/element"]
+  RootPackage --> P4["packages/@excalidraw/math"]
+  RootPackage --> P5["packages/@excalidraw/utils"]
   RootPackage --> App[excalidraw-app]
-  RootPackage --> Ex[examples/*]
+  RootPackage --> Ex["examples/*"]
 ```
 
 ---
@@ -313,7 +313,7 @@ Decision flow:
 ```mermaid
 flowchart TD
   Q[New feature or bug?] --> A{Needed by all<br/>library users?}
-  A -- Yes --> Lib[Work in packages/excalidraw<br/>(+ shared packages)]
+  A -- Yes --> Lib[Work in packages/excalidraw + shared packages]
   A -- No --> App[Work in excalidraw-app]
 ```
 
