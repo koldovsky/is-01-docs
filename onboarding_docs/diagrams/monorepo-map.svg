@@ -1,60 +1,63 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" role="img" aria-label="Excalidraw monorepo map diagram">
   <defs>
     <style>
-      .box { fill: #ffffff; stroke: #111827; stroke-width: 2; }
+      .box { fill: #eef2ff; stroke: #111827; stroke-width: 2; }
       .label { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; font-size: 16px; fill: #111827; }
       .small { font-size: 14px; fill: #374151; }
       .arrow { stroke: #111827; stroke-width: 2; fill: none; }
+      .edgeLabel { font-size: 13px; fill: #374151; }
     </style>
     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#111827" />
     </marker>
   </defs>
 
-  <!-- Top: app -->
-  <rect class="box" x="60" y="50" rx="12" ry="12" width="340" height="86"/>
-  <text class="label" x="90" y="86">excalidraw-app/</text>
-  <text class="label small" x="90" y="112">(website)</text>
+  <!-- Top row -->
+  <rect class="box" x="60" y="40" rx="12" ry="12" width="270" height="76"/>
+  <text class="label" x="84" y="72">excalidraw-app/</text>
+  <text class="label small" x="84" y="96">(website)</text>
+
+  <rect class="box" x="355" y="40" rx="12" ry="12" width="270" height="76"/>
+  <text class="label" x="379" y="72">examples/</text>
+  <text class="label small" x="379" y="96">(integrations)</text>
+
+  <rect class="box" x="650" y="40" rx="12" ry="12" width="270" height="76"/>
+  <text class="label" x="674" y="72">dev-docs/</text>
+  <text class="label small" x="674" y="96">(developer docs site)</text>
 
   <!-- Middle: library -->
-  <rect class="box" x="520" y="50" rx="12" ry="12" width="400" height="86"/>
-  <text class="label" x="550" y="86">@excalidraw/excalidraw</text>
-  <text class="label small" x="550" y="112">(library package)</text>
+  <rect class="box" x="265" y="185" rx="12" ry="12" width="450" height="86"/>
+  <text class="label" x="290" y="220">@excalidraw/excalidraw</text>
+  <text class="label small" x="290" y="246">(library)</text>
 
-  <!-- Arrows app -> library -->
-  <path class="arrow" d="M400 93 L520 93" marker-end="url(#arrowhead)"/>
-  <text class="label small" x="420" y="78">depends on</text>
+  <!-- Arrows (top -> library), orthogonal and non-crossing -->
+  <path class="arrow" d="M195 116 L195 152 L340 152 L340 185" marker-end="url(#arrowhead)"/>
+  <text class="label edgeLabel" x="210" y="144">depends on</text>
 
-  <!-- Bottom: shared packages -->
-  <rect class="box" x="520" y="190" rx="12" ry="12" width="190" height="70"/>
-  <text class="label" x="545" y="232">packages/common</text>
+  <path class="arrow" d="M490 116 L490 185" marker-end="url(#arrowhead)"/>
+  <text class="label edgeLabel" x="502" y="160">integrate</text>
 
-  <rect class="box" x="730" y="190" rx="12" ry="12" width="190" height="70"/>
-  <text class="label" x="755" y="232">packages/element</text>
+  <path class="arrow" d="M785 116 L785 152 L640 152 L640 185" marker-end="url(#arrowhead)"/>
+  <text class="label edgeLabel" x="660" y="144">developer docs site</text>
 
-  <rect class="box" x="520" y="280" rx="12" ry="12" width="190" height="70"/>
-  <text class="label" x="560" y="322">packages/math</text>
+  <!-- Bottom row: shared packages -->
+  <rect class="box" x="90" y="350" rx="12" ry="12" width="200" height="70"/>
+  <text class="label" x="110" y="392">packages/common</text>
 
-  <rect class="box" x="730" y="280" rx="12" ry="12" width="190" height="70"/>
-  <text class="label" x="765" y="322">packages/utils</text>
+  <rect class="box" x="310" y="350" rx="12" ry="12" width="200" height="70"/>
+  <text class="label" x="330" y="392">packages/element</text>
 
-  <!-- Arrows library -> packages -->
-  <path class="arrow" d="M720 136 L615 190" marker-end="url(#arrowhead)"/>
-  <path class="arrow" d="M780 136 L825 190" marker-end="url(#arrowhead)"/>
-  <path class="arrow" d="M720 136 L615 280" marker-end="url(#arrowhead)"/>
-  <path class="arrow" d="M780 136 L825 280" marker-end="url(#arrowhead)"/>
+  <rect class="box" x="530" y="350" rx="12" ry="12" width="200" height="70"/>
+  <text class="label" x="565" y="392">packages/math</text>
 
-  <!-- Left: examples -->
-  <rect class="box" x="60" y="230" rx="12" ry="12" width="340" height="86"/>
-  <text class="label" x="90" y="266">examples/</text>
-  <text class="label small" x="90" y="292">(integrations)</text>
-  <path class="arrow" d="M400 273 L520 105" marker-end="url(#arrowhead)"/>
-  <text class="label small" x="420" y="220">integrate</text>
+  <rect class="box" x="750" y="350" rx="12" ry="12" width="200" height="70"/>
+  <text class="label" x="785" y="392">packages/utils</text>
 
-  <!-- Left: dev-docs -->
-  <rect class="box" x="60" y="350" rx="12" ry="12" width="340" height="86"/>
-  <text class="label" x="90" y="386">dev-docs/</text>
-  <text class="label small" x="90" y="412">(developer docs site)</text>
-  <path class="arrow" d="M400 393 L520 120" marker-end="url(#arrowhead)"/>
+  <!-- Arrows (library -> packages), straight down via a common bus -->
+  <path class="arrow" d="M490 271 L490 308" marker-end="url(#arrowhead)"/>
+  <path class="arrow" d="M490 308 L190 308 L190 350" marker-end="url(#arrowhead)"/>
+  <path class="arrow" d="M490 308 L410 308 L410 350" marker-end="url(#arrowhead)"/>
+  <path class="arrow" d="M490 308 L630 308 L630 350" marker-end="url(#arrowhead)"/>
+  <path class="arrow" d="M490 308 L850 308 L850 350" marker-end="url(#arrowhead)"/>
 </svg>
 
