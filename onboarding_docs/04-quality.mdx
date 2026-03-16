@@ -1,0 +1,40 @@
+# Quality: tests, typecheck, lint/format
+
+Excalidraw is a large TypeScript monorepo. Your fastest path to a smooth PR is running the right checks **before** you push.
+
+## The “before you open a PR” checklist
+
+```bash
+yarn fix
+yarn test:typecheck
+yarn test
+```
+
+If your change affects snapshots, use:
+
+```bash
+yarn test:update
+```
+
+## What each command is for
+
+- **`yarn fix`**: auto-fixes formatting/lint issues where possible.
+- **`yarn test:typecheck`**: catches TypeScript errors across packages.
+- **`yarn test`**: runs automated tests.
+- **`yarn test:update`**: updates snapshots when changes are expected.
+
+## Common causes of CI failures (and how to avoid them)
+
+- **Formatting diffs**: run `yarn fix` before committing.
+- **Type errors after refactors**: run `yarn test:typecheck` early, not just at the end.
+- **Snapshot drift**: if the UI changed intentionally, use `yarn test:update` and verify the updates are expected.
+- **Flaky UI assumptions**: manually test your change in the running app (`yarn start`) in addition to unit tests.
+
+## Manual testing (don’t skip)
+
+Automated checks are necessary but not sufficient. Before requesting review:
+
+- Reproduce the original bug / requirement.
+- Verify the fix/feature in the running app.
+- If you touched UI, sanity-check across at least two browsers when practical.
+
