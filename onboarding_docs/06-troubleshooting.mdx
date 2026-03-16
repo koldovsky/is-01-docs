@@ -1,0 +1,70 @@
+# Troubleshooting
+
+This is a “try these first” list for common local-dev problems.
+
+## Install issues
+
+### `yarn` fails or installs the wrong dependency set
+
+- Ensure you’re using a supported **Yarn** version (v1 or v2.4.2+).
+- Re-run with a clean slate:
+
+```bash
+rm -rf node_modules
+yarn cache clean
+yarn
+```
+
+### Node version weirdness
+
+If you see runtime errors that look like tooling incompatibility, switch to an **LTS Node.js** version and reinstall:
+
+```bash
+node -v
+yarn -v
+rm -rf node_modules
+yarn
+```
+
+## Dev server issues
+
+### Port already in use
+
+If `yarn start` fails because the port is busy, stop the other process first, or use your OS tools to identify what’s listening on `3000`.
+
+### Changes not reflected
+
+Try:
+
+- Hard refresh the browser.
+- Restart `yarn start`.
+- If still stuck, clear caches by reinstalling dependencies (see above).
+
+## Tests / typecheck issues
+
+### Snapshots changed
+
+If the change is intentional:
+
+```bash
+yarn test:update
+```
+
+Then review the snapshot diffs to ensure they match your intent.
+
+### Type errors after moving code
+
+Run:
+
+```bash
+yarn test:typecheck
+```
+
+If errors mention path aliases or cross-package types, verify you updated exports/import paths in the correct package boundary.
+
+## Collaboration features locally
+
+Real-time collaboration typically requires running the room server:
+
+- [`excalidraw-room`](https://github.com/excalidraw/excalidraw-room)
+

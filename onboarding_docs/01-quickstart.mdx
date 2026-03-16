@@ -1,0 +1,49 @@
+# Quickstart
+
+This guide gets you from “fresh clone” to “I can run and change things” with minimal context switching.
+
+## Prerequisites
+
+- **Node.js** (use an LTS release)
+- **Yarn** (v1 or v2.4.2+)
+- **Git**
+
+## Get the code
+
+```bash
+git clone https://github.com/excalidraw/excalidraw.git
+cd excalidraw
+yarn
+```
+
+## Run the app locally
+
+```bash
+yarn start
+```
+
+Then open `http://localhost:3000`.
+
+## The 5 commands you’ll use most
+
+```bash
+yarn start          # run the app for local dev
+yarn fix            # auto-format / lint-fix where possible
+yarn test           # run tests
+yarn test:typecheck # TypeScript type checking
+yarn test:update    # run tests (and update snapshots where applicable)
+```
+
+## Choose your path
+
+- **I want to change the website/app behavior** → start in [`excalidraw-app/`](./02-repo-tour.mdx#excalidraw-app)
+- **I want to change the reusable editor library** → start in [`packages/excalidraw/`](./02-repo-tour.mdx#packages-excalidraw)
+- **I want to add/fix a shared utility or core type** → start in `packages/*`
+- **I want to integrate Excalidraw into my own app** → see `dev-docs/docs/@excalidraw/excalidraw/installation.mdx`
+
+## Optional: collaboration
+
+Local real-time collaboration typically requires running the room server too:
+
+- [`excalidraw-room`](https://github.com/excalidraw/excalidraw-room)
+

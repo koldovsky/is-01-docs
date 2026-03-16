@@ -1,0 +1,69 @@
+# Making changes: PR checklist
+
+This page is a practical guide for making changes in a way that’s easy to review and unlikely to break consumers.
+
+## Pick the right issue
+
+- For major changes, open an issue first to align on approach.
+- If you’re new, look for “easy” tasks on the project roadmap.
+
+References:
+
+- Issues: `https://github.com/excalidraw/excalidraw/issues/new`
+- Roadmap: `https://github.com/orgs/excalidraw/projects/3`
+
+## Commit / PR title convention
+
+Use a semantic prefix at the start of the PR title:
+
+- **feat**: new feature
+- **fix**: bug fix
+- **docs**: documentation-only change
+- **style**: formatting-only change
+- **refactor**: code change without behavior change
+- **perf**: performance improvement
+- **test**: adding/fixing tests
+- **build**: build system/dependencies
+- **ci**: CI configuration
+- **chore**: other maintenance work
+- **revert**: revert a previous change
+
+## PR body template (copy/paste)
+
+```md
+## Summary
+- What changed and why (1–3 bullets).
+
+## Test plan
+- [ ] `yarn test:typecheck`
+- [ ] `yarn test`
+- [ ] Manual testing notes:
+  - Steps:
+  - Expected:
+  - Actual:
+
+## Screenshots / recordings (if UI)
+- Before:
+- After:
+
+## Risks / rollout
+- What could break?
+- Any backwards-compat concerns for `@excalidraw/excalidraw` consumers?
+```
+
+## Design principles for reviewable changes
+
+- **Prefer the smallest change that solves the problem**.
+- **Avoid unrelated refactors** in the same PR.
+- **Add tests when behavior changes** (especially for bug fixes).
+- **Think about consumers**:
+  - If you changed exported types/props/APIs, treat it as a compatibility boundary.
+
+## When you’re unsure where to implement
+
+Start with the closest user-visible behavior, then peel layers:
+
+1. Locate the UI behavior in `excalidraw-app/` or `packages/excalidraw/`.
+2. Track state changes.
+3. Only then adjust shared utilities/types in `packages/*`.
+
