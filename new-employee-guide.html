@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excalidraw — New Developer Onboarding Guide</title>
+  <style>
+    :root {
+      --text: #1a1a2e;
+      --bg: #ffffff;
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --border: #e0e0e0;
+      --code-bg: #f5f5f7;
+      --table-header: #f0edff;
+      --muted: #636e72;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 32px 80px;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin: 0 0 8px;
+      color: var(--accent);
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.6em;
+      margin: 48px 0 16px;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 1.2em;
+      margin: 28px 0 10px;
+      color: var(--text);
+      page-break-after: avoid;
+    }
+
+    h4 {
+      font-size: 1.05em;
+      margin: 20px 0 8px;
+      color: var(--muted);
+    }
+
+    p { margin: 0 0 14px; }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code {
+      font-family: "SF Mono", "Fira Code", "JetBrains Mono", Consolas, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      overflow-x: auto;
+      margin: 12px 0 20px;
+      font-size: 0.88em;
+      line-height: 1.6;
+      page-break-inside: avoid;
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 24px;
+      font-size: 0.92em;
+      page-break-inside: avoid;
+    }
+
+    th {
+      background: var(--table-header);
+      font-weight: 600;
+      text-align: left;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+    }
+
+    td {
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td { background: #fafafa; }
+
+    ul, ol { margin: 8px 0 16px 24px; }
+    li { margin: 4px 0; }
+
+    .toc {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 28px;
+      margin: 24px 0 40px;
+    }
+
+    .toc h3 { margin-top: 0; }
+    .toc ol { margin-bottom: 0; }
+    .toc li { margin: 6px 0; }
+
+    .callout {
+      border-left: 4px solid var(--accent);
+      background: var(--code-bg);
+      padding: 14px 18px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout-warning {
+      border-left-color: #fdcb6e;
+      background: #fef9e7;
+    }
+
+    .callout-danger {
+      border-left-color: #e17055;
+      background: #fdf2f0;
+    }
+
+    .checklist { list-style: none; margin-left: 0; padding-left: 0; }
+    .checklist li { padding: 4px 0 4px 28px; position: relative; }
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 4px;
+      color: var(--accent);
+    }
+
+    .tree { font-family: monospace; font-size: 0.9em; line-height: 1.5; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.78em;
+      font-weight: 600;
+      color: white;
+      background: var(--accent);
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.1em;
+      margin-bottom: 28px;
+    }
+
+    @media print {
+      body { padding: 20px; max-width: 100%; font-size: 11pt; }
+      h2 { page-break-before: always; }
+      h2:first-of-type { page-break-before: avoid; }
+      .no-print { display: none; }
+      a { color: var(--text); }
+      a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: var(--muted); }
+      pre { font-size: 9pt; }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Excalidraw — New Developer Onboarding Guide</h1>
+<p class="subtitle">Everything you need to get productive on the Excalidraw codebase.</p>
+
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#architecture">Architecture Overview</a></li>
+    <li><a href="#setup">Local Setup</a></li>
+    <li><a href="#navigation">Codebase Navigation</a></li>
+    <li><a href="#flows">Key Business Flows</a></li>
+    <li><a href="#components">Important Components</a></li>
+    <li><a href="#testing">Testing Guide</a></li>
+    <li><a href="#pitfalls">Common Pitfalls</a></li>
+    <li><a href="#features">Adding New Features</a></li>
+    <li><a href="#tldr">TL;DR — Day 1 Quick Start</a></li>
+  </ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="architecture">1. Architecture Overview</h2>
+
+<p>Excalidraw is an open-source virtual whiteboard built with <strong>React</strong> and <strong>TypeScript</strong>. The codebase is a <strong>Yarn workspaces monorepo</strong> with a clear separation between the reusable library and the web application.</p>
+
+<h3>Tech Stack</h3>
+<table>
+  <tr><th>Layer</th><th>Technology</th></tr>
+  <tr><td>UI Framework</td><td>React 19 + TypeScript 5.9</td></tr>
+  <tr><td>State Management</td><td>Jotai (atomic state) + imperative AppState</td></tr>
+  <tr><td>Build System</td><td>Vite (app), esbuild (packages)</td></tr>
+  <tr><td>Testing</td><td>Vitest + jsdom + @testing-library/react</td></tr>
+  <tr><td>Canvas Rendering</td><td>HTML Canvas 2D + Rough.js (hand-drawn style)</td></tr>
+  <tr><td>Real-time Collab</td><td>Socket.io (WebSocket)</td></tr>
+  <tr><td>Backend Storage</td><td>Firebase Firestore + Firebase Storage</td></tr>
+  <tr><td>Styling</td><td>SCSS modules</td></tr>
+  <tr><td>CI/CD</td><td>GitHub Actions</td></tr>
+  <tr><td>Containerization</td><td>Docker + nginx</td></tr>
+</table>
+
+<h3>Monorepo Structure</h3>
+<pre><code>excalidraw/
+├── excalidraw-app/          → Web application (excalidraw.com)
+├── packages/
+│   ├── excalidraw/          → Main React editor component (npm)
+│   ├── element/             → Element types and manipulation
+│   ├── common/              → Shared utilities and constants
+│   ├── math/                → Geometry primitives
+│   └── utils/               → Export and bounds helpers
+├── examples/                → Integration examples
+├── dev-docs/                → Docusaurus docs site
+└── firebase-project/        → Firebase configuration</code></pre>
+
+<h3>Package Responsibilities</h3>
+<table>
+  <tr><th>Package</th><th>Role</th></tr>
+  <tr><td><code>@excalidraw/excalidraw</code></td><td>Main React component, actions, rendering, data serialization, UI</td></tr>
+  <tr><td><code>@excalidraw/element</code></td><td>Element types, Scene state, mutation, transforms, binding, groups</td></tr>
+  <tr><td><code>@excalidraw/common</code></td><td>Constants, colors, keys, event emitter, queue, utilities</td></tr>
+  <tr><td><code>@excalidraw/math</code></td><td>Points, vectors, curves, ellipses, polygons, segments</td></tr>
+  <tr><td><code>@excalidraw/utils</code></td><td>Export helpers, bounds calculations, shape utilities</td></tr>
+</table>
+
+<h3>Dependency Rule</h3>
+<p>Packages only depend <strong>downward</strong>. <code>common</code> and <code>math</code> have no internal dependencies. <code>element</code> depends on <code>common</code> + <code>math</code>. <code>excalidraw</code> depends on everything. The app depends on <code>excalidraw</code> + Firebase + Socket.io.</p>
+
+<h3>State Management</h3>
+<p>State is managed through two complementary systems:</p>
+<ul>
+  <li><strong>Jotai atoms</strong> — Fine-grained reactive state for UI. Editor uses <code>EditorJotaiProvider</code> (scoped); app adds <code>AppJotaiProvider</code>.</li>
+  <li><strong>AppState</strong> — A flat object containing all editor state (tool, theme, zoom, selection, etc.) defined in <code>appState.ts</code>.</li>
+  <li><strong>Elements array</strong> — Source of truth for drawing content. Elements are immutable; changes create new objects with incremented <code>version</code>.</li>
+</ul>
+
+<h3>Rendering Architecture</h3>
+<p>The editor uses a <strong>multi-canvas</strong> approach for performance:</p>
+<ul>
+  <li><strong>StaticCanvas</strong> — Renders committed elements (cached, only re-renders on element changes)</li>
+  <li><strong>InteractiveCanvas</strong> — Overlays selection, handles, remote cursors (re-renders on pointer move)</li>
+  <li><strong>NewElementCanvas</strong> — Renders the element being drawn (before commit)</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="setup">2. Local Setup</h2>
+
+<h3>Prerequisites</h3>
+<table>
+  <tr><th>Tool</th><th>Version</th><th>Verify</th></tr>
+  <tr><td>Node.js</td><td>&gt;= 18.0.0</td><td><code>node --version</code></td></tr>
+  <tr><td>Yarn</td><td>1.x (Classic)</td><td><code>yarn --version</code></td></tr>
+  <tr><td>Git</td><td>Any recent</td><td><code>git --version</code></td></tr>
+</table>
+
+<h3>Installation Steps</h3>
+<pre><code># 1. Clone
+git clone https://github.com/excalidraw/excalidraw.git
+cd excalidraw
+
+# 2. Install dependencies (all workspaces)
+yarn
+
+# 3. Start dev server
+yarn start
+
+# 4. Open http://localhost:3001</code></pre>
+
+<h3>Environment Variables</h3>
+<p>Defined in <code>.env.development</code> and <code>.env.production</code>. All prefixed with <code>VITE_APP_</code>. Defaults work for local development.</p>
+
+<table>
+  <tr><th>Variable</th><th>Purpose</th></tr>
+  <tr><td><code>VITE_APP_BACKEND_V2_GET_URL</code></td><td>Backend for loading shared drawings</td></tr>
+  <tr><td><code>VITE_APP_BACKEND_V2_POST_URL</code></td><td>Backend for saving shared drawings</td></tr>
+  <tr><td><code>VITE_APP_WS_SERVER_URL</code></td><td>WebSocket server for collaboration</td></tr>
+  <tr><td><code>VITE_APP_FIREBASE_CONFIG</code></td><td>Firebase config (JSON string)</td></tr>
+  <tr><td><code>VITE_APP_PORT</code></td><td>Dev server port (default: 3001)</td></tr>
+</table>
+
+<h3>Other Commands</h3>
+<table>
+  <tr><th>Command</th><th>Purpose</th></tr>
+  <tr><td><code>yarn build</code></td><td>Build the web app</td></tr>
+  <tr><td><code>yarn build:packages</code></td><td>Build all npm packages</td></tr>
+  <tr><td><code>yarn start:production</code></td><td>Build + serve on port 5001</td></tr>
+  <tr><td><code>yarn clean-install</code></td><td>Remove node_modules + reinstall</td></tr>
+  <tr><td><code>docker-compose up --build -d</code></td><td>Run via Docker on port 3000</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="navigation">3. Codebase Navigation</h2>
+
+<h3>Where to Find Things</h3>
+<table>
+  <tr><th>What</th><th>Where</th></tr>
+  <tr><td>Element type definitions</td><td><code>packages/element/src/types.ts</code></td></tr>
+  <tr><td>Element creation</td><td><code>packages/element/src/newElement.ts</code></td></tr>
+  <tr><td>Element mutation</td><td><code>packages/element/src/mutateElement.ts</code></td></tr>
+  <tr><td>Arrow binding logic</td><td><code>packages/element/src/binding.ts</code></td></tr>
+  <tr><td>Scene state</td><td><code>packages/element/src/Scene.ts</code></td></tr>
+  <tr><td>Action system types</td><td><code>packages/excalidraw/actions/types.ts</code></td></tr>
+  <tr><td>Action manager</td><td><code>packages/excalidraw/actions/manager.tsx</code></td></tr>
+  <tr><td>All action implementations</td><td><code>packages/excalidraw/actions/action*.ts(x)</code></td></tr>
+  <tr><td>Main editor component</td><td><code>packages/excalidraw/components/App.tsx</code></td></tr>
+  <tr><td>Canvas rendering</td><td><code>packages/excalidraw/renderer/staticScene.ts</code></td></tr>
+  <tr><td>SVG export rendering</td><td><code>packages/excalidraw/renderer/staticSvgScene.ts</code></td></tr>
+  <tr><td>JSON serialization</td><td><code>packages/excalidraw/data/json.ts</code></td></tr>
+  <tr><td>Encryption</td><td><code>packages/excalidraw/data/encryption.ts</code></td></tr>
+  <tr><td>Collaboration merge</td><td><code>packages/excalidraw/data/reconcile.ts</code></td></tr>
+  <tr><td>Data migration</td><td><code>packages/excalidraw/data/restore.ts</code></td></tr>
+  <tr><td>App state defaults</td><td><code>packages/excalidraw/appState.ts</code></td></tr>
+  <tr><td>Core type definitions</td><td><code>packages/excalidraw/types.ts</code></td></tr>
+  <tr><td>Collaboration orchestrator</td><td><code>excalidraw-app/collab/Collab.tsx</code></td></tr>
+  <tr><td>WebSocket transport</td><td><code>excalidraw-app/collab/Portal.tsx</code></td></tr>
+  <tr><td>Firebase integration</td><td><code>excalidraw-app/data/firebase.ts</code></td></tr>
+  <tr><td>Local persistence</td><td><code>excalidraw-app/data/LocalData.ts</code></td></tr>
+  <tr><td>Undo/redo</td><td><code>packages/excalidraw/history.ts</code></td></tr>
+  <tr><td>Clipboard handling</td><td><code>packages/excalidraw/clipboard.ts</code></td></tr>
+  <tr><td>Library system</td><td><code>packages/excalidraw/data/library.ts</code></td></tr>
+</table>
+
+<h3>Naming Conventions</h3>
+<ul>
+  <li>React components: <strong>PascalCase</strong> (<code>LayerUI.tsx</code>)</li>
+  <li>Utilities and modules: <strong>camelCase</strong> (<code>mutateElement.ts</code>)</li>
+  <li>Actions: <code>action</code> prefix (<code>actionDeleteSelected.ts</code>)</li>
+  <li>Jotai atoms: <code>Atom</code> suffix (<code>collabAPIAtom</code>)</li>
+  <li>Constants: <code>UPPER_SNAKE_CASE</code></li>
+  <li>Type-only imports enforced: <code>import type { ... }</code></li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="flows">4. Key Business Flows</h2>
+
+<h3>Drawing an Element</h3>
+<pre><code>User clicks canvas with rectangle tool
+  → App.tsx: handleCanvasPointerDown()
+    → newElement({type: "rectangle", x, y, ...styles})
+    → NewElementCanvas renders preview
+
+User drags
+  → App.tsx: handleCanvasPointerMove()
+    → Update element width/height
+    → Re-render preview
+
+User releases
+  → App.tsx: handleCanvasPointerUp()
+    → Commit element to Scene
+    → StaticCanvas re-renders
+    → History records delta
+    → LocalData auto-saves</code></pre>
+
+<h3>App Bootstrap</h3>
+<pre><code>Browser loads excalidraw-app/index.tsx
+  → ExcalidrawWrapper renders
+  → initializeScene() runs in useEffect
+    → Check URL: #room=..., #json=..., #url=..., or empty
+    → Load from: collab / backend / URL / localStorage
+  → Pass initialData to &lt;Excalidraw /&gt;
+  → onChange wires LocalData.save() + collab sync</code></pre>
+
+<h3>Real-Time Collaboration</h3>
+<pre><code>User clicks "Live Collaboration"
+  → Collab.startCollaboration()
+    → Generate roomId + encryptionKey
+    → URL hash: #room=roomId,key (key never sent to server)
+    → Portal.open() → Socket.io connect + join room
+    → loadFromFirebase(roomId) for existing data
+
+User draws/edits
+  → onChange → syncElements()
+    → reconcileElements(local, remote)
+    → Portal.broadcastScene(encrypted elements)
+    → queueSaveToFirebase()
+
+Remote user's changes arrive
+  → Portal receives → handleRemoteSceneUpdate()
+    → reconcileElements() → updateScene()</code></pre>
+
+<h3>Save &amp; Export</h3>
+<ul>
+  <li><strong>Auto-save:</strong> Every change → debounced → localStorage (appState) + IndexedDB (elements + files)</li>
+  <li><strong>Save to file (Ctrl+S):</strong> serializeAsJSON() → File System Access API or download fallback</li>
+  <li><strong>Share link:</strong> encryptData() → POST to backend → URL with #json=id,key</li>
+  <li><strong>Export PNG:</strong> renderStaticScene() on offscreen canvas → canvas.toBlob("image/png")</li>
+  <li><strong>Export SVG:</strong> renderSceneToSvg() → SVG string</li>
+</ul>
+
+<h3>Undo/Redo</h3>
+<ul>
+  <li>Delta-based (not full snapshots) — memory efficient</li>
+  <li><code>History</code> class with <code>undoStack</code>/<code>redoStack</code> of <code>HistoryDelta</code> objects</li>
+  <li><code>captureUpdate</code> in <code>ActionResult</code> controls whether an action is recorded</li>
+  <li>Ctrl+Z = undo, Ctrl+Shift+Z / Ctrl+Y = redo</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="components">5. Important Components</h2>
+
+<h3>App.tsx <span class="badge">Critical</span></h3>
+<p><code>packages/excalidraw/components/App.tsx</code></p>
+<p>The largest file in the project. Handles all canvas rendering orchestration, pointer/keyboard events, tool state machine, drag-and-drop, gesture handling, and collaboration state.</p>
+<div class="callout callout-warning">Changes to App.tsx can have wide-reaching effects. Test thoroughly with different tools and input devices (mouse, touch, stylus).</div>
+
+<h3>ActionManager</h3>
+<p><code>packages/excalidraw/actions/manager.tsx</code></p>
+<p>Registry and dispatcher for all user actions. Routes keyboard events to matching actions, executes <code>action.perform()</code>, and feeds results to the state updater.</p>
+
+<h3>Scene</h3>
+<p><code>packages/element/src/Scene.ts</code></p>
+<p>Holds all elements and manages z-ordering via fractional indexing. Provides <code>getNonDeletedElements()</code> for rendering.</p>
+
+<h3>History</h3>
+<p><code>packages/excalidraw/history.ts</code></p>
+<p>Delta-based undo/redo. Each <code>HistoryDelta</code> knows how to apply itself and produce an inverse.</p>
+
+<h3>reconcileElements()</h3>
+<p><code>packages/excalidraw/data/reconcile.ts</code></p>
+<p>Merges local and remote element arrays during collaboration by comparing <code>version</code> numbers. Higher version wins; ties go to remote.</p>
+<div class="callout callout-danger">Bugs in reconciliation cause data loss in collaborative sessions. Test concurrent editing carefully.</div>
+
+<h3>restore.ts</h3>
+<p><code>packages/excalidraw/data/restore.ts</code></p>
+<p>Migrates saved data to current format. When the element schema changes, migration logic goes here.</p>
+
+<h3>Collab.tsx &amp; Portal.tsx</h3>
+<p><code>excalidraw-app/collab/Collab.tsx</code> / <code>Portal.tsx</code></p>
+<p>Manages collaboration lifecycle (start/stop, sync, file uploads) and Socket.io transport (connect, broadcast scene, broadcast cursor positions).</p>
+
+<h3>Firebase Integration</h3>
+<p><code>excalidraw-app/data/firebase.ts</code></p>
+<p>Durable storage for collaboration (Firestore for scenes, Storage for images). Config from <code>VITE_APP_FIREBASE_CONFIG</code>.</p>
+
+<!-- ============================================================ -->
+<h2 id="testing">6. Testing Guide</h2>
+
+<h3>Commands</h3>
+<table>
+  <tr><th>Command</th><th>Purpose</th></tr>
+  <tr><td><code>yarn test:app</code></td><td>Run tests in watch mode</td></tr>
+  <tr><td><code>yarn test:update</code></td><td>Run all tests + update snapshots</td></tr>
+  <tr><td><code>yarn test:all</code></td><td>Full suite: typecheck + lint + tests</td></tr>
+  <tr><td><code>yarn test:typecheck</code></td><td>TypeScript type checking</td></tr>
+  <tr><td><code>yarn test:coverage</code></td><td>Tests with coverage report</td></tr>
+</table>
+
+<h3>Test Infrastructure</h3>
+<ul>
+  <li><strong>Framework:</strong> Vitest + jsdom</li>
+  <li><strong>Component testing:</strong> @testing-library/react</li>
+  <li><strong>Canvas mock:</strong> vitest-canvas-mock</li>
+  <li><strong>IndexedDB mock:</strong> fake-indexeddb</li>
+  <li><strong>Setup file:</strong> <code>setupTests.ts</code> (mocks fonts, canvas, RAF, clipboard, crypto)</li>
+</ul>
+
+<h3>Test Helpers</h3>
+<table>
+  <tr><th>Helper</th><th>Location</th><th>Purpose</th></tr>
+  <tr><td><code>render()</code></td><td><code>tests/test-utils.ts</code></td><td>Renders Excalidraw in test container</td></tr>
+  <tr><td><code>API</code></td><td><code>tests/helpers/api.ts</code></td><td>Programmatic editor control (setElements, getAppState, etc.)</td></tr>
+  <tr><td><code>UI</code>, <code>Keyboard</code>, <code>Pointer</code></td><td><code>tests/helpers/ui.ts</code></td><td>Simulate user interactions</td></tr>
+</table>
+
+<h3>Writing a Test</h3>
+<pre><code>import { render, unmountComponent } from "../tests/test-utils";
+import { API } from "../tests/helpers/api";
+import { Keyboard } from "../tests/helpers/ui";
+import { Excalidraw } from "../index";
+
+describe("my feature", () => {
+  beforeEach(async () => {
+    localStorage.clear();
+    await render(&lt;Excalidraw /&gt;);
+  });
+  afterEach(() =&gt; unmountComponent());
+
+  it("should handle shortcut", () =&gt; {
+    API.setElements([API.createElement({ type: "rectangle" })]);
+    Keyboard.withModifierKeys({ ctrl: true }, () =&gt; {
+      Keyboard.keyDown("a");
+    });
+    const state = API.getAppState();
+    expect(Object.keys(state.selectedElementIds)).toHaveLength(1);
+  });
+});</code></pre>
+
+<h3>Before Submitting a PR</h3>
+<pre><code>yarn test:update     # Tests + snapshot updates
+yarn test:typecheck  # Type checking
+yarn fix             # Auto-fix lint + formatting</code></pre>
+
+<!-- ============================================================ -->
+<h2 id="pitfalls">7. Common Pitfalls</h2>
+
+<h3>1. Element Immutability</h3>
+<div class="callout callout-danger">Never mutate elements directly. Always use <code>mutateElement()</code>. Direct mutation breaks rendering, collaboration, and undo/redo.</div>
+
+<h3>2. Collaboration Reconciliation</h3>
+<p>Higher <code>version</code> wins; ties go to remote. Never remove deleted elements (<code>isDeleted: true</code>) from arrays — they prevent "ghost" resurrections.</p>
+
+<h3>3. Fractional Index Corruption</h3>
+<p>Don't manually assign <code>index</code> values. Use <code>Scene</code> methods for reordering.</p>
+
+<h3>4. App.tsx Side Effects</h3>
+<p>Changing pointer handlers can break drawing, selection, AND resize simultaneously. Test all tools.</p>
+
+<h3>5. Rendering Performance</h3>
+<p>Don't force static canvas re-render on pointer moves. Don't create new Rough.js drawables every render (they're cached). Test with 500+ elements.</p>
+
+<h3>6. Import Restrictions</h3>
+<ul>
+  <li>Inside <code>@excalidraw/excalidraw</code>: don't import from barrel <code>index.tsx</code></li>
+  <li>Always import Jotai from <code>editor-jotai.ts</code>, not raw <code>jotai</code></li>
+  <li>Cross-package imports only through <code>@excalidraw/*</code> aliases</li>
+</ul>
+
+<h3>7. Encryption Key Exposure</h3>
+<p>Keys are in the URL hash (never sent to server). Don't log full URLs in analytics/error tracking.</p>
+
+<h3>8. <code>isDeleted</code> vs Array Removal</h3>
+<p>Elements are soft-deleted with <code>isDeleted: true</code>. Never filter them out of the source array. Use <code>getNonDeletedElements()</code> for rendering.</p>
+
+<h3>9. Testing Pitfalls</h3>
+<ul>
+  <li>Always <code>await render()</code> — it's async</li>
+  <li>Always <code>unmountComponent()</code> in <code>afterEach</code></li>
+  <li>Review snapshot diffs before committing, don't blindly update</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="features">8. Adding New Features</h2>
+
+<h3>Adding an Action</h3>
+<ol>
+  <li>Create <code>packages/excalidraw/actions/actionMyFeature.ts</code></li>
+  <li>Implement the <code>Action</code> interface: <code>name</code>, <code>perform</code>, <code>keyTest</code> (optional), <code>PanelComponent</code> (optional)</li>
+  <li>Export from <code>packages/excalidraw/actions/index.ts</code></li>
+  <li>Write tests in <code>actionMyFeature.test.tsx</code></li>
+</ol>
+
+<h3>Adding an Element Property</h3>
+<ol>
+  <li>Add to type in <code>packages/element/src/types.ts</code></li>
+  <li>Set default in <code>packages/element/src/newElement.ts</code></li>
+  <li>Add migration in <code>packages/excalidraw/data/restore.ts</code></li>
+  <li>Wire up UI and rendering</li>
+</ol>
+
+<h3>New Feature Checklist</h3>
+<ul class="checklist">
+  <li>Types defined in appropriate <code>types.ts</code></li>
+  <li>Default values set</li>
+  <li>Migration logic added (if changing element schema)</li>
+  <li>Action with keyboard shortcut (if applicable)</li>
+  <li>UI wired up (toolbar, panel, menu)</li>
+  <li>Rendering updated (if visual)</li>
+  <li>Tests written (unit + integration)</li>
+  <li>Snapshots updated (<code>yarn test:update</code>)</li>
+  <li>Type checking passes (<code>yarn test:typecheck</code>)</li>
+  <li>Linting passes (<code>yarn fix</code>)</li>
+  <li>Works on desktop and mobile</li>
+  <li>Works with collaboration</li>
+  <li>Export/import handles the new data</li>
+</ul>
+
+<h3>What to Avoid</h3>
+<ul>
+  <li>Don't bypass the action system for undoable state changes</li>
+  <li>Don't add dependencies to <code>common</code> or <code>math</code> on other <code>@excalidraw</code> packages</li>
+  <li>Don't add large dependencies without discussion (bundle size is monitored)</li>
+  <li>Don't add browser-specific APIs without fallbacks (SSR support needed)</li>
+  <li>Don't hardcode strings — use the i18n system in <code>packages/excalidraw/locales/</code></li>
+</ul>
+
+<!-- ============================================================ -->
+<h2 id="tldr">9. TL;DR — Day 1 Quick Start</h2>
+
+<h3>Setup</h3>
+<pre><code>git clone https://github.com/excalidraw/excalidraw.git
+cd excalidraw
+yarn
+yarn start
+# Open http://localhost:3001</code></pre>
+
+<h3>Key Commands</h3>
+<table>
+  <tr><th>Command</th><th>Purpose</th></tr>
+  <tr><td><code>yarn start</code></td><td>Dev server (port 3001)</td></tr>
+  <tr><td><code>yarn test:update</code></td><td>Tests + snapshot updates (run before committing)</td></tr>
+  <tr><td><code>yarn test:typecheck</code></td><td>TypeScript type check</td></tr>
+  <tr><td><code>yarn fix</code></td><td>Auto-fix formatting + linting</td></tr>
+  <tr><td><code>yarn test:all</code></td><td>Full CI-equivalent check</td></tr>
+</table>
+
+<h3>Read These Files First</h3>
+<ol>
+  <li><code>packages/excalidraw/index.tsx</code> — main entry point</li>
+  <li><code>packages/element/src/types.ts</code> — the data model</li>
+  <li><code>packages/excalidraw/types.ts</code> — AppState and component props</li>
+  <li><code>packages/excalidraw/appState.ts</code> — default app state</li>
+  <li><code>packages/excalidraw/actions/types.ts</code> — action system</li>
+  <li><code>excalidraw-app/App.tsx</code> — app bootstrap</li>
+</ol>
+
+<h3>The 5 Most Important Concepts</h3>
+<ol>
+  <li><strong>Elements are immutable</strong> — use <code>mutateElement()</code></li>
+  <li><strong>Actions are the state change API</strong> — all operations go through <code>ActionManager</code></li>
+  <li><strong>Jotai for reactive state</strong> — atoms from <code>editor-jotai.ts</code></li>
+  <li><strong>Multi-canvas rendering</strong> — static (cached), interactive (selection), new element (preview)</li>
+  <li><strong>Collaboration via reconciliation</strong> — <code>reconcileElements()</code> merges by version</li>
+</ol>
+
+<h3>Before Your First PR</h3>
+<pre><code>yarn test:update     # Tests + snapshots
+yarn test:typecheck  # TypeScript
+yarn fix             # Formatting + linting</code></pre>
+
+<hr />
+
+<p style="text-align: center; color: var(--muted); margin-top: 40px;">
+  Excalidraw Developer Onboarding Guide &bull; Generated for internal use
+</p>
+
+</body>
+</html>
