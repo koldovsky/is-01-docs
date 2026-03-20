@@ -1,0 +1,150 @@
+# New Employee Onboarding
+
+This page is meant to get a new team member productive fast: understanding what Excalidraw is, where the important code lives, and how to run the project locally.
+
+## 1. What Excalidraw is
+
+Excalidraw is an open source virtual whiteboard for creating diagrams with a hand-drawn feel. It supports exporting drawings and (in the hosted app) real-time collaboration with end-to-end encryption.
+
+## 2. How this repo is organized (high-level)
+
+This repository is a monorepo:
+
+```
+excalidraw/                         (repo root)
+├─ packages/                        (reusable editor building blocks)
+│  ├─ excalidraw/                  (@excalidraw/excalidraw React component)
+│  ├─ common/                     shared utilities/state used by the editor
+│  ├─ element/                    element model/types/logic
+│  ├─ math/                       geometry/math helpers
+│  └─ utils/                      export helpers, serialization utilities, etc.
+├─ excalidraw-app/                  the website/app at excalidraw.com (Vite)
+└─ examples/                       small integration examples
+```
+
+### Mental model diagram
+
+```
+User
+  |
+  v
+excalidraw-app (hosted UI + collaboration glue)
+  |
+  v
+@excalidraw/excalidraw (editor component + canvas interaction)
+  |
+  v
+packages/* (element math/render/export + shared utilities)
+```
+
+## 3. Running the project locally
+
+### Prerequisites
+
+- Node.js
+- Yarn
+- Git
+
+### One-time setup
+
+From the repo root:
+
+```bash
+yarn
+```
+
+### Start the hosted app (recommended for day 1)
+
+```bash
+yarn start
+```
+
+This runs the `excalidraw-app/` Vite dev server. The dev server port is controlled by `.env.development` (e.g. `VITE_APP_PORT` defaults to `3001` in this repo), so open `http://localhost:<port>/`.
+
+### Quick ways to test the editor embed
+
+If you want the editor inside a small harness:
+
+```bash
+yarn start:example
+```
+
+## 4. Environment variables (what matters)
+
+For local development, Vite loads `.env.development` from the repo root (see how `excalidraw-app/vite.config.mts` reads env vars).
+
+Key values you may run into:
+
+- `VITE_APP_PORT`: dev server port (your `localhost` URL)
+- `VITE_APP_WS_SERVER_URL`: collaboration websocket URL (defaults to `http://localhost:3002`)
+- `VITE_APP_BACKEND_V2_GET_URL` / `VITE_APP_BACKEND_V2_POST_URL`: backend endpoints used by the app
+
+If you change anything and the app doesn’t reflect it immediately, restart the dev server.
+
+## 5. Collaboration locally (optional, but useful)
+
+The hosted app’s collaboration features require a local collab server. The dev docs link to the collab server repo: https://github.com/excalidraw/excalidraw-room
+
+At a high level:
+
+```
+Browser / excalidraw-app
+    |
+    | WebSocket (VITE_APP_WS_SERVER_URL)
+    v
+Collab server (excalidraw-room)
+    |
+    | persistence / state
+    v
+Your local drawing session (shared in real time)
+```
+
+If you only need to work on editor behavior (tools, rendering, exporting), you can usually skip collaboration and run without the collab server.
+
+## 6. Common “day-to-day” commands
+
+### Typecheck
+
+```bash
+yarn test:typecheck
+```
+
+### Run tests
+
+```bash
+yarn test
+```
+
+### Update snapshots (if tests request it)
+
+```bash
+yarn test:update
+```
+
+### Formatting / lint fixes
+
+```bash
+yarn fix
+```
+
+## 7. Where to change what (quick reference)
+
+- Editor behavior (tools, canvas interaction, exporting hooks, editor UI inside the component):
+  - `packages/excalidraw/`
+- Core diagram/element logic (element types, geometry, constraints, etc.):
+  - `packages/element/`, `packages/math/`
+- General shared utilities:
+  - `packages/common/`, `packages/utils/`
+- Hosted app wiring (routing, collaboration UI, app state glue, landing page chrome):
+  - `excalidraw-app/`
+- Small integration examples:
+  - `examples/`
+
+## 8. What to read next
+
+Start with:
+
+- `dev-docs/docs/introduction/development.mdx` (local installation + run instructions)
+- `dev-docs/docs/introduction/contributing.mdx` (PR workflow guidelines)
+- `README.md` at the repo root (project description + feature overview)
+
