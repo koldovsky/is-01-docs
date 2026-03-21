@@ -42,7 +42,7 @@ Both live in the same monorepo and share the same underlying code.
 
 ## 2. Repository at a Glance
 
-```
+```text
 excalidraw-master/
 ├── packages/
 │   ├── excalidraw/     ← @excalidraw/excalidraw  (main React component, npm published)
@@ -182,7 +182,7 @@ The foundation everything else builds on. No monorepo dependencies.
 
 Key files:
 
-```
+```text
 packages/common/src/
 ├── constants.ts      ← All magic numbers, enums (EVENT, THEME, CURSOR_TYPE, …)
 ├── colors.ts         ← Color palette definitions
@@ -201,7 +201,7 @@ Pure 2D geometry — no DOM, no React, no side effects. Safe to use server-side.
 
 Key files:
 
-```
+```text
 packages/math/src/
 ├── vector.ts     ← 2D vector operations
 ├── point.ts      ← Point types and arithmetic
@@ -218,7 +218,7 @@ packages/math/src/
 
 The heart of the canvas domain logic.
 
-```
+```text
 packages/element/src/
 ├── types.ts               ← All element type definitions
 ├── Scene.ts               ← SceneElementsMap, scene queries
@@ -305,7 +305,7 @@ export default function App() {
 
 Utility functions intended for host application use (not for internal library code).
 
-```
+```text
 packages/utils/src/
 ├── export.ts        ← exportToCanvas, exportToBlob, exportToSvg
 ├── withinBounds.ts  ← Hit-testing helpers
@@ -473,7 +473,7 @@ graph LR
 
 Two HTML5 `<canvas>` elements are layered on top of each other:
 
-```
+```text
 ┌──────────────────────────────────────────┐
 │  Interactive Canvas  (top layer)          │
 │  - selection handles                      │
@@ -579,7 +579,7 @@ graph TD
 | Firebase Firestore | Shared room state for collaboration | Firebase 11 |
 | Firebase Storage | Shared image files for collaboration | Firebase 11 |
 
-**Write strategy:** `LocalData.ts` uses debounced writes — rapid element mutations don't thrash the storage. A save happens at most once per 300ms window.
+**Write strategy:** `LocalData.ts` uses debounced writes — rapid element mutations don't thrash the storage. A save happens at most once per 300 ms window.
 
 ---
 
