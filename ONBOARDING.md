@@ -13,7 +13,7 @@ Used in production by Google Cloud, Meta, Notion, Replit, CodeSandbox, and many 
 
 ## Monorepo Structure
 
-```
+```text
 excalidraw/
 ├── excalidraw-app/        # The excalidraw.com web application
 ├── packages/
@@ -154,7 +154,7 @@ sequenceDiagram
 
 Every drawn shape is an `ExcalidrawElement` — a plain, serialisable JSON object. Elements are **never mutated in place** outside of `mutateElement()`, keeping rendering predictable.
 
-```
+```text
 ExcalidrawElement
  ├── id, type, version, versionNonce
  ├── x, y, width, height, angle
