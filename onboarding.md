@@ -193,7 +193,7 @@ Then open the logged URL (typically `http://localhost:<port>`). This is your **p
 
 ### 4.4 Run tests, type checks, and formatting
 
-From the root, as documented in `CLAUDE.md`:
+From the root:
 
 ```bash
 # TypeScript type checking
