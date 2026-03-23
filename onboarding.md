@@ -4,21 +4,21 @@
 
 ### 1.1 What is Excalidraw?
 
-**Excalidraw** is an open‑source, hand‑drawn style whiteboard. It exists in two main forms:
+**Excalidraw** is an open-source, hand-drawn style whiteboard. It exists in two main forms:
 
 - **Embeddable React library**: `@excalidraw/excalidraw` (used by Notion, Google, Replit, etc.)
 - **Full web application**: `excalidraw.com`, a production PWA built on that library
 
 **Core capabilities**:
 
-- Infinite, canvas‑based whiteboard with pan and zoom
-- Hand‑drawn style shapes, arrows, text, freehand drawing, eraser
+- Infinite, canvas-based whiteboard with pan and zoom
+- Hand-drawn style shapes, arrows, text, freehand drawing, eraser
 - Image and shape library support
 - Export to PNG, SVG, clipboard, and `.excalidraw` JSON
 - Localization, dark mode, keyboard shortcuts
-- App‑level features: real‑time collaboration, E2E encryption, local‑first autosave, shareable links, offline PWA
+- App-level features: real-time collaboration, E2E encryption, local-first autosave, shareable links, offline PWA
 
-### 1.2 High‑level architecture
+### 1.2 High-level architecture
 
 At a high level, the repo separates:
 
@@ -63,7 +63,7 @@ flowchart TD
 
 ## 2. Repository Structure & Layout
 
-### 2.1 Top‑level directories
+### 2.1 Top-level directories
 
 - **`packages/excalidraw/`**
   - The published **React editor library**: `@excalidraw/excalidraw`
@@ -71,20 +71,20 @@ flowchart TD
   - Consumed by external apps and `excalidraw-app`
 
 - **`packages/@excalidraw/common`, `element`, `math`, `utils`**
-  - Internal, versioned packages with domain‑specific logic:
+  - Internal, versioned packages with domain-specific logic:
     - **`common`**: shared types, utilities
     - **`element`**: element models, mutations, rendering logic
-    - **`math`**: geometry, hit‑testing, transforms
+    - **`math`**: geometry, hit-testing, transforms
     - **`utils`**: shared helpers
 
 - **`excalidraw-app/`**
   - **Production web app** behind `https://excalidraw.com`
   - Uses `@excalidraw/excalidraw` and the internal packages
-  - App‑specific concerns: collab, persistence, routing, PWA, etc.
+  - App-specific concerns: collab, persistence, routing, PWA, etc.
 
 - **`examples/`**
   - Minimal, focused samples:
-    - `with-nextjs` — SSR environment with client‑side editor
+    - `with-nextjs` — SSR environment with client-side editor
     - `with-script-in-browser` — script tag integration
 
 - **Root config**
@@ -129,26 +129,26 @@ graph TD
 - **Formatting / linting**:
   - ESLint
   - Prettier
-  - Project‑specific lint rules
+  - Project-specific lint rules
 
 ### 3.2 Architectural style
 
-- **Componentized editor**: `@excalidraw/excalidraw` is a single high‑level React component that manages:
+- **Componentized editor**: `@excalidraw/excalidraw` is a single high-level React component that manages:
   - Canvas rendering
   - Tool state and interactions
   - Layout and theming
 - **Functional core, React shell**:
-  - Core logic (element transforms, hit‑testing, geometry) lives in pure TS modules under `packages/@excalidraw/*`.
+  - Core logic (element transforms, hit-testing, geometry) lives in pure TS modules under `packages/@excalidraw/*`.
   - React mainly orchestrates user interactions and rendering.
 
 ### 3.3 Data & state
 
-- **In‑app state**: managed inside the editor and app via React state and internal state machines.
+- **In-app state**: managed inside the editor and app via React state and internal state machines.
 - **Persistence**:
-  - Local storage / IndexedDB for local‑first behavior (in `excalidraw-app`)
+  - Local storage / IndexedDB for local-first behavior (in `excalidraw-app`)
   - JSON `.excalidraw` format for export/import
 - **Collaboration**:
-  - Real‑time sync (e.g. via WebSockets or similar) with E2E encryption layered on top.
+  - Real-time sync (e.g. via WebSockets or similar) with E2E encryption layered on top.
   - Details live in `excalidraw-app` (not in the core library).
 
 ---
@@ -231,14 +231,14 @@ export default function App() {
 }
 ```
 
-Two **non‑negotiable** requirements:
+Two **non-negotiable** requirements:
 
 1. **CSS import**: `import "@excalidraw/excalidraw/index.css";`
-2. **Container height**: parent element must have a **non‑zero height** (e.g. `height: 100vh`)
+2. **Container height**: parent element must have a **non-zero height** (e.g. `height: 100vh`)
 
 ### 5.2 Editor in SSR / Next.js
 
-The editor is **client‑only**. In Next.js or similar SSR frameworks:
+The editor is **client-only**. In Next.js or similar SSR frameworks:
 
 - Use a `"use client"` component that renders `<Excalidraw />`.
 - Load it dynamically with `dynamic(..., { ssr: false })`.
@@ -363,7 +363,7 @@ sequenceDiagram
    - Explain **what**, **why**, and **how tested**.
    - Link to any related issues / design docs.
 
-### 7.2 Adding a new editor feature (library‑centric)
+### 7.2 Adding a new editor feature (library-centric)
 
 - **Examples**: New tool, constraint behavior, snapping, export mode.
 
@@ -374,7 +374,7 @@ Steps:
    - Exports: in `packages/excalidraw` entrypoints
 2. **Modify or extend core logic**:
    - Add new element types or operations in `@excalidraw/element`.
-   - Wire into render / hit‑test / selection logic as needed.
+   - Wire into render / hit-test / selection logic as needed.
 3. **Expose via editor UI**:
    - Update toolbar / shortcuts / menus in `packages/excalidraw`.
 4. **Test in app**:
@@ -383,7 +383,7 @@ Steps:
    - Unit tests in core packages.
    - Snapshot tests if applicable.
 
-### 7.3 Changing app UX only (app‑centric)
+### 7.3 Changing app UX only (app-centric)
 
 - **Examples**: New menu, different sharing flow, collaboration banner.
 
@@ -402,7 +402,7 @@ Steps:
 - Ensure:
   - CSS imported
   - Container has height
-  - Client‑only rendering in SSR environments
+  - Client-only rendering in SSR environments
 - Add persistence, auth, and storage according to your host app.
 
 ---
@@ -455,13 +455,13 @@ Checklist:
 ### 9.2 `window is not defined` / hydration errors
 
 - You’re likely trying to render Excalidraw on the server.
-  - Wrap it in a client‑only component.
+  - Wrap it in a client-only component.
   - Use dynamic import blocking SSR.
 
 ### 9.3 Fonts not loading / UI looks broken
 
 - By default, fonts are loaded from a CDN.
-- To **self‑host fonts**:
+- To **self-host fonts**:
   - Copy `node_modules/@excalidraw/excalidraw/dist/prod/fonts` into your static assets (`public/` or similar).
   - Set:
 
@@ -475,7 +475,7 @@ Checklist:
 
 - Many tests use **snapshots**.
 - If behavior/markup changed intentionally:
-  - Re‑run `yarn test:update` to regenerate snapshots.
+  - Re-run `yarn test:update` to regenerate snapshots.
 - If failures look unrelated:
   - Investigate; avoid blindly updating snapshots.
 
