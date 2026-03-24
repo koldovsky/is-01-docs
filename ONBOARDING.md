@@ -36,7 +36,7 @@ This is a full-stack web application built on **API Platform 4** — a framework
 
 ## 2. Architecture
 
-```
+```text
 Browser
   │
   ├── GET / ───────────────────► PWA (Next.js, port 3000 internally)
@@ -50,7 +50,7 @@ Browser
 
 ### Services (Docker Compose)
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │  php  (FrankenPHP)                                  │
 │  ├── Symfony 7.2 app  (API Platform 4.2)            │
@@ -171,7 +171,7 @@ XDEBUG_MODE=debug docker compose up -d php
 
 ## 5. Project Structure
 
-```
+```text
 api-platform/
 ├── api/                        ← PHP/Symfony backend
 │   ├── src/
@@ -336,7 +336,7 @@ Access control per operation:
 
 The project uses the **Next.js Pages Router** (not the App Router):
 
-```
+```text
 pwa/pages/
 ├── index.tsx        ← route: /
 └── admin/
