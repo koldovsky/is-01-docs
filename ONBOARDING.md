@@ -83,7 +83,7 @@ graph TB
 
 ## Repository Structure
 
-```
+```text
 excalidraw/
 ├── packages/
 │   ├── excalidraw/        # Core React component library (@excalidraw/excalidraw)
@@ -324,7 +324,7 @@ classDiagram
 
 Key relationships:
 - **`id`** — Unique element identifier (nanoid)
-- **`groupId`** — Groups multiple elements
+- **`groupIds`** — Groups multiple elements
 - **`frameId`** — Associates elements with frames
 - **Bindings** — Arrows connect to shapes via `startBinding` / `endBinding`
 - **Bound text** — Text elements attached to shapes
