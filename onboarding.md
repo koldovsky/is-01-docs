@@ -31,7 +31,7 @@
 - 📡 PWA support (works offline)
 - 🤼 Real-time collaboration
 - 🔒 End-to-end encryption
-- 💾 Local-first autosave
+- 💾 Local-first with cloud backup
 - 🔗 Shareable links and read-only exports
 
 ### Repository Architecture
@@ -461,7 +461,7 @@ For team editing in real-time:
    - Supports up to 50 concurrent users
 
 3. **Save & Export:**
-   - Auto-saves to encrypted cloud
+   - Local-first with cloud backup
    - Export as JSON for version control
    - Generate shareable read-only links
 
