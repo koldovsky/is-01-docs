@@ -4,9 +4,9 @@
 
 | Tool | Minimum Version | How to Install |
 | --- | --- | --- |
-| Node.js | 18.0.0 | https://nodejs.org/
-| Yarn | 1.22.22 | `npm install -g yarn` or `corepack enable`
-| Git | latest stable | https://git-scm.com/
+| Node.js | 18.0.0 | https://nodejs.org/ |
+| Yarn | 1.22.22 | `npm install -g yarn` or `corepack enable` |
+| Git | latest stable | https://git-scm.com/ |
 | Docker | latest stable | https://docs.docker.com/get-docker/ |
 
 ## Getting the Code
@@ -18,10 +18,10 @@ git clone https://github.com/excalidraw/excalidraw.git
 cd excalidraw
 ```
 
-2. Confirm you are on `master`:
+2. Confirm you are on `main`:
 
 ```bash
-git checkout master
+git checkout main
 ```
 
 3. Install dependencies:
